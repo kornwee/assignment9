@@ -1,0 +1,5 @@
+usage: myseq gcContent [-h] [-s SEQ]
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -s SEQ, --seq SEQ  Provide sequence

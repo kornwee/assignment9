@@ -1,0 +1,149 @@
+#!/usr/bin/python
+
+def main():
+    import sys
+    import main
+
+    argv = sys.argv[1:]
+
+    def readHelper(filename):
+        filename = './helper/' + filename
+
+        with open(filename) as helper:
+            print(helper.read()) 
+
+    commands = {
+        'help': lambda : readHelper('help-all.txt'),
+        'gcContent': {
+            'help': lambda : readHelper('help-gcContent.txt'),
+            'seq': lambda seq : main.gcContent(seq)
+        },
+        'countBases': {
+            'help': lambda : readHelper('help-countBases.txt'),
+             'seq': lambda seq : main.countBases(seq),
+             'seq-rev': lambda seq : main.countBasesRev(seq)
+        },
+        'enzTargetsScan': {
+            'help': lambda : readHelper('help-enzTargetsScan.txt'),
+            'seq': lambda seq, enz : main.enzTargetsScan(seq, enz),
+            'seq-rev': lambda seq, enz : main.enzTargetsScanRev(seq, enz)
+        },
+        'transcription': {
+            'help': lambda : readHelper('help-transcription.txt'),
+            'seq': lambda seq : main.transcription(seq),
+            'seq-rev': lambda seq : main.transcriptionRev(seq)
+        },
+        'translation': {
+            'help': lambda : readHelper('help-translation.txt'),
+            'seq': lambda seq : main.translation(seq),
+            'seq-rev': lambda seq : main.translationRev(seq)
+        },
+    }
+    
+    def unknownCommand(msg):
+        print('Unknown command "' + msg + '"')
+
+    def musHaveValue(param):
+        print('Command "' + param + '" must have value')
+
+    def showHelpOnCommand(property):
+        commands[property]['help']()
+    
+    length = len(argv)
+    
+    if length == 0:
+        unknownCommand('')
+        return
+
+    param1 = argv[0]
+    param2 = argv[1] if length > 1 else ''
+    param3 = argv[2] if length > 2 else ''
+    param4 = argv[3] if length > 3 else ''
+    param5 = argv[4] if length > 4 else ''
+    param6 = argv[5] if length > 5 else ''
+
+    param3 = param3.upper()
+
+    if param1 == '-h' or param1 == '--help':
+        commands['help']()
+        return
+
+    if param1 == 'gcContent':
+        if param2 == '-h' or param2 == '--help':
+            showHelpOnCommand(param1)
+            return
+
+        if param3 == '':
+            musHaveValue(param2)
+            return
+
+        if param2 == '-s' or param2 == '--seq':
+            commands[param1]['seq'](param3)
+            return
+
+    if param1 == 'countBases':
+        if param2 == '-h' or param2 == '--help':
+            showHelpOnCommand(param1)
+            return
+
+        if param3 == '':
+            musHaveValue(param2)
+            return
+
+        if param2 == '-s' or param2 == '--seq':
+            if (param4 == '-r' or param4 == '--revcomp'):
+                commands[param1]['seq-rev'](param3)
+            else :
+                commands[param1]['seq'](param3)
+            return
+
+    if param1 == 'enzTargetsScan':
+        if param2 == '-h' or param2 == '--help':
+            showHelpOnCommand(param1)
+            return
+
+        if param3 == '' or param5 == '':
+            musHaveValue(param2)
+            return
+        
+        if param2 == '-s' or param2 == '--seq' and param4 == '-e' or param4 == '-enz':
+            if (param6 == '-r' or param6 == '--revcomp'):
+                commands[param1]['seq-rev'](param3, param5)
+            else:
+                commands[param1]['seq'](param3, param5)
+            return
+
+    if param1 == 'transcription':
+        if param2 == '-h' or param2 == '--help':
+            showHelpOnCommand(param1)
+            return
+
+        if param3 == '':
+            musHaveValue(param2)
+            return
+
+        if param2 == '-s' or param2 == '--seq':
+            if (param4 == '-r' or param4 == '--revcomp'):
+                commands[param1]['seq-rev'](param3)
+            else :
+                commands[param1]['seq'](param3)
+            return
+    
+    if param1 == 'translation':
+        if param2 == '-h' or param2 == '--help':
+            showHelpOnCommand(param1)
+            return
+
+        if param3 == '':
+            musHaveValue(param2)
+            return
+
+        if param2 == '-s' or param2 == '--seq':
+            if (param4 == '-r' or param4 == '--revcomp'):
+                commands[param1]['seq-rev'](param3)
+            else :
+                commands[param1]['seq'](param3)
+            return
+
+if __name__ == '__main__':
+    main()

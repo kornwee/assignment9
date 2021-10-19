@@ -1,0 +1,18 @@
+usage: myseq [-h]
+             {gcContent,countBases,transcription,translation,enzTargetsScan}
+             ...
+
+Work with sequence
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+commands:
+  Please choose command below:
+
+  {gcContent,countBases,transcription,translation,enzTargetsScan}
+    gcContent           Calculate GC content
+    countBases          Count number of each base
+    transcription       Convert DNA->RNA
+    translation         Convert DNA->Protein
+    enzTargetsScan      Find restriction enzyme

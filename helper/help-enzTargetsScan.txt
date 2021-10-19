@@ -1,0 +1,7 @@
+usage: myseq enzTargetsScan [-h] [-s SEQ] [-e ENZ] [-r]
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -s SEQ, --seq SEQ  Provide sequence
+  -e ENZ, --enz ENZ  Enzyme name
+  -r, --revcomp      Convet DNA to reverse-complementary
