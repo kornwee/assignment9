@@ -1,0 +1,6 @@
+usage: myseq countBases [-h] [-s SEQ] [-r]
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -s SEQ, --seq SEQ  Provide sequence
+  -r, --revcomp      Convet DNA to reverse-complementary
